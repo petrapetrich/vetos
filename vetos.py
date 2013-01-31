@@ -1,33 +1,42 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 #
-#  untitled.py
-#  
-#  Copyright 2013 Petra Petrich <petrich@pcelica>
-#  
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#  
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#  
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#  MA 02110-1301, USA.
-#  
-#  
+#sucelje za "admina": kalendar u kojem ce svaki admin moci unjeti svoj 
+#raspored smjene. Moze odabrati dane i sate. 
+#takoder moze pogledati raspored samo za sebe, tj rezerviorane termine.
 
+#sucelje za  korisnika: otvori se mali upitnik s pitanjima na koja ce 
+#se moci odgovoriti ili oznacavanjem kucice ili upisivanjem s tipkovnice
+#pitanja: kojeg veterinara zelite? (kucica)
+#koja je vasa zivotinja? (kucica pas, macka, itd ili upis iz tipkovnice 
+#ako je nesto sto nije navedeno)
+#
+#razlog posjeta (kucica i upis s tipkovnice)
+#neka od pitanja tj odgovora otvaraju nova pitanja
+#termin koji vam odgovara (mjesec dana unaprijed) i onda se bira ovisno
+#o veterinaru tj njegovoj smjeni neki od slobodnih termina koji
+#takoder ovisi i o duljini trajanja posjeta (uanprijed odredeno kada se
+#oznaci razlog posjeta)
+#nakon ispnjavanja ankete dobije se kratki podsjetnik koji se mozda moze
+#isprintat
+#takoder se i adminov rapored moze isprintati
+
+
+from tkinter import *
 
 
 def main():
+
+    app = Tk()
+    app.title("vetOS")
+    app.geometry('800x600+100+100')
+
+    app.mainloop()
+
     
     return 0
 
 if __name__ == '__main__':
     main()
+
 
