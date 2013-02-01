@@ -25,12 +25,23 @@
 from tkinter import *
 
 
+
+
 def main():
+    
+
 
     app = Tk()
     app.title("vetOS")
     app.geometry('800x600+100+100')
 
+    
+    button1 = Button(app, text="Nova narudzba", width=30)
+    button1.pack(side='left', padx=15,pady=15)
+    
+    button2 = Button(app, text="Unesi raspored", width=30)
+    button2.pack(side='right', padx=15,pady=15)
+    
     app.mainloop()
 
     
