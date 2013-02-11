@@ -21,33 +21,49 @@
 #isprintat
 #takoder se i adminov rapored moze isprintati
 
-
 from tkinter import *
 
 
+class Example(Frame):
+  
+    def __init__(self, parent):
+        Frame.__init__(self, parent, background="white")   
+         
+        self.parent = parent
+        
+        self.initUI()
+        
+    
+        
+    def initUI(self):
+      
+        self.parent.title("vetOS")
+        self.pack(fill=BOTH, expand=1)
+        
+        B1 = Button(self, text ="Nova narudzba", command=self.narudzba)
+        B1.pack()
+        B2 = Button(self, text ="Uvid u raspored", command=self.raspored)
+        B2.pack()
 
-
+    def raspored(self):
+        prozor_raspored= Toplevel()
+        prozor_raspored.geometry ("800x600+400+400")
+        prozor_raspored.title("Raspored")
+        
+    
+    def narudzba(self):
+         prozor_narudzba= Toplevel()
+         prozor_narudzba.geometry ("800x600+400+400")
+         prozor_narudzba.title("Nova narudzba")
+        
+        
 def main():
-    
+  
+    root = Tk()
+    root.geometry("800x600+300+300")
+    app = Example(root)
+    root.mainloop()  
 
-
-    app = Tk()
-    app.title("vetOS")
-    app.geometry('800x600+100+100')
-
-    
-    button1 = Button(app, text="Nova narudzba", width=30)
-    button1.pack(side='left', padx=15,pady=15)
-    
-    button2 = Button(app, text="Unesi raspored", width=30)
-    button2.pack(side='right', padx=15,pady=15)
-    
-    app.mainloop()
-
-    
-    return 0
 
 if __name__ == '__main__':
-    main()
-
-
+    main()  
