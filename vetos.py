@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/python2
 # -*- coding: utf-8 -*-
 #
 #sucelje za "admina": kalendar u kojem ce svaki admin moci unjeti svoj 
@@ -21,7 +21,7 @@
 #isprintat
 #takoder se i adminov rapored moze isprintati
 
-from tkinter import *
+from Tkinter import *
 
 
 class Example(Frame):
