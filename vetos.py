@@ -34,14 +34,20 @@ class VetOs(Frame):
     
         
     def initUI(self):
-      
         self.parent.title("vetOS")
         self.pack(fill=BOTH, expand=1)
         
+        string=''' prvi red
+        drugi red'''
+        L1 = Label(self, text=string)
+        L1.pack()
+        L1.place(relx=0.5, rely=0.1, anchor=CENTER)
         B1 = Button(self, text ="Nova narudzba", command=self.narudzba)
         B1.pack()
+        B1.place(relx=0.5, rely=0.8, anchor=CENTER)
         B2 = Button(self, text ="Uvid u raspored", command=self.raspored)
         B2.pack()
+        B2.place(relx=0.5, rely=0.9, anchor=CENTER)
 
     def raspored(self):
         # The Toplevel widget is used to provide a separate window
