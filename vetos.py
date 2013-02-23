@@ -45,24 +45,24 @@ class VetOs(Frame):
         B1 = Button(self, text ="Nova narudzba", command=self.narudzba)
         B1.pack()
         B1.place(relx=0.5, rely=0.8, anchor=CENTER)
-        B2 = Button(self, text ="Uvid u raspored", command=self.raspored)
+        B2 = Button(self, text ="Prikaz rasporeda", command=self.raspored)
         B2.pack()
         B2.place(relx=0.5, rely=0.9, anchor=CENTER)
 
     def raspored(self):
         # The Toplevel widget is used to provide a separate window
         # container.
-        prozor_raspored= Toplevel(bg="white")
-        prozor_raspored.geometry ("800x600+400+400")
-        prozor_raspored.title("Raspored")
+        raspored = Toplevel(bg="white")
+        raspored.geometry ("800x600+400+400")
+        raspored.title("Raspored")
         
-        B1 = Button(prozor_raspored, text ="Nova narudzba", command=self.narudzba)
+        B1 = Button(raspored, text ="Nova narudzba", command=self.narudzba)
         B1.pack()
     
     def narudzba(self):
-         prozor_narudzba= Toplevel(bg="white")
-         prozor_narudzba.geometry ("800x600+400+400")
-         prozor_narudzba.title("Nova narudzba")
+         narudzba = Toplevel(bg="white")
+         narudzba.geometry ("800x600+400+400")
+         narudzba.title("Nova narudzba")
         
         
 def main():
