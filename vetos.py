@@ -23,7 +23,6 @@
 
 from Tkinter import *
 
-
 class VetOs(Frame):
   
     def __init__(self, parent):
@@ -31,14 +30,11 @@ class VetOs(Frame):
         self.parent = parent
         self.initUI()
         
-    
-        
     def initUI(self):
         self.parent.title("vetOS")
         self.pack(fill=BOTH, expand=1)
         
-        string=''' prvi red
-        drugi red'''
+        string="""VetOS - aplikacija za veterinare """
         L1 = Label(self, text=string)
         L1.pack()
         L1.place(relx=0.5, rely=0.1, anchor=CENTER)
@@ -53,25 +49,31 @@ class VetOs(Frame):
         # The Toplevel widget is used to provide a separate window
         # container.
         raspored = Toplevel(bg="white")
-        raspored.geometry ("800x600+400+400")
+        raspored.geometry ("800x600+400+200")
         raspored.title("Raspored")
+        L1 = Label(raspored, text="Prikaz rasporeda")
+        L1.pack()
+        L1.place(relx=0.5, rely=0.1, anchor=CENTER)
         
         B1 = Button(raspored, text ="Nova narudzba", command=self.narudzba)
         B1.pack()
+        B1.place(relx=0.5, rely=0.8, anchor=CENTER)
     
     def narudzba(self):
-         narudzba = Toplevel(bg="white")
-         narudzba.geometry ("800x600+400+400")
-         narudzba.title("Nova narudzba")
+        narudzba = Toplevel(bg="white")
+        narudzba.geometry ("800x600+400+200")
+        narudzba.title("Nova narudzba")
         
+        L1 = Label(narudzba, text="Unesi raspored")
+        L1.pack()
+        L1.place(relx=0.5, rely=0.1, anchor=CENTER)
         
 def main():
   
     root = Tk()
-    root.geometry("800x600+300+300")
+    root.geometry("800x600+400+100")
     app = VetOs(root)
     root.mainloop()  
-
 
 if __name__ == '__main__':
     main()  
