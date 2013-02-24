@@ -66,33 +66,38 @@ class VetOs(Frame):
         narudzba = Toplevel(bg="white")
         narudzba.geometry ("800x600+400+200")
         narudzba.title("Nova narudzba")
+        narudzba.grid()
         
-        L1 = Label(narudzba, text="Unesi narudzba")
-        L1.pack()
-        L1.place(relx=0.5, rely=0.1, anchor=CENTER)
+        L1 = Label(narudzba, text="Unesi narudzbu")
+        L1.grid(column=6,row=1,sticky=N)
         
         L2 = Label(narudzba, text="Koja je vaša životinja?")
-        L2.pack()
-        L2.place(relx=0.5, rely=0.2, anchor=CENTER)
+        L2.grid(column=2,row=3,sticky=W)
+        self.zivotinja = StringVar()
+        self.unos2 = Entry(narudzba,textvariable=self.zivotinja, width=20)
+        self.unos2.grid(column=2, row=4, sticky=W)
+        self.unos2.bind("<Return>", self.OnPressEnter)
+        self.zivotinja.set(u"Ovdje unesi ime životnje.")
+        self.potvrda2 = Button(narudzba, text ="Potvrda", command=self.OnPressEnter)
+        self.potvrda2.grid(column=4, row=4, sticky=E)
+
         L3 = Label(narudzba, text="Ralog posjeta?")
-        L3.pack()
-        L3.place(relx=0.5, rely=0.3, anchor=CENTER)
+        L3.grid(column=2,row=5,sticky=W)
+        self.razlog_posjeta = StringVar()
+        self.unos3 = Entry(narudzba,textvariable=self.razlog_posjeta, width=20,)
+        self.unos3.grid(column=2, row=6, sticky=W)
+        self.unos3.bind("<Return>", self.OnPressEnter)
+        self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
+        self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressEnter)
+        self.potvrda3.grid(column=4, row=6, sticky=E)
 
-        # self.entry je dostupan svim f u klasi
-        # self.entryVariable = StringVar()
-        # self.entry = Entry(narudzba,textvariable=self.entryVariable, width=50)
-        # self.entry.focus_set()
-        # self.entry.pack()
-        # self.place(relx=0.5, rely=0.35, anchor=CENTER)
-        # self.entry.bind("<Return>", self.OnPressEnter)
-        # self.entryVariable.set(u"Enter text here.")
-        # self.labelVariable = StringVar()
-        # label = Label(self,textvariable=self.labelVariable, anchor="w",fg="white",bg="blue")
+        for child in narudzba.winfo_children():
+            child.grid_configure(padx=10, pady=10)
 
-    # def OnPressEnter(self,event):
-    #     # self.labelVariable.set( self.entryVariable.get()+" (You pressed ENTER)" )
-    #     self.entry.focus_set()
-    #     self.entry.selection_range(0, END)
+    def OnPressEnter(self,event):
+        self.prikaz.set( self.zivotinja.get())
+        self.prikaz2.focus_set()
+        self.prikaz2.selection_range(0, END)
 
 def main():
   
