@@ -69,7 +69,7 @@ class VetOs(Frame):
         narudzba.grid()
         
         L1 = Label(narudzba, text="Unesi narudzbu")
-        L1.grid(column=6,row=1,sticky=N)
+        L1.grid(column=3,row=1,sticky=N, columnspan=4)
         
         L2 = Label(narudzba, text="Koja je vaša životinja?")
         L2.grid(column=2,row=3,sticky=W)
@@ -78,18 +78,18 @@ class VetOs(Frame):
         self.unos2.grid(column=2, row=4, sticky=W)
         self.unos2.bind("<Return>", self.OnPressEnter)
         self.zivotinja.set(u"Ovdje unesi ime životnje.")
-        self.potvrda2 = Button(narudzba, text ="Potvrda", command=self.OnPressEnter)
-        self.potvrda2.grid(column=4, row=4, sticky=E)
+        self.potvrda2 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
+        self.potvrda2.grid(column=2, row=5, sticky=W)
 
-        L3 = Label(narudzba, text="Ralog posjeta?")
-        L3.grid(column=2,row=5,sticky=W)
+        L3 = Label(narudzba, text="Razlog posjeta?")
+        L3.grid(column=2,row=6,sticky=W)
         self.razlog_posjeta = StringVar()
-        self.unos3 = Entry(narudzba,textvariable=self.razlog_posjeta, width=20,)
-        self.unos3.grid(column=2, row=6, sticky=W)
-        self.unos3.bind("<Return>", self.OnPressEnter)
+        self.unos3 = Text(narudzba, width=60, height=10)
+        self.unos3.grid(column=2, row=7, sticky=W)
+        # self.unos3.bind("<Return>", self.OnPressEnter)
         self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
-        self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressEnter)
-        self.potvrda3.grid(column=4, row=6, sticky=E)
+        self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
+        self.potvrda3.grid(column=2, row=8, sticky=W)
 
         for child in narudzba.winfo_children():
             child.grid_configure(padx=10, pady=10)
@@ -98,6 +98,9 @@ class VetOs(Frame):
         self.prikaz.set( self.zivotinja.get())
         self.prikaz2.focus_set()
         self.prikaz2.selection_range(0, END)
+
+    def OnPressButton(self):
+        print self.razlog_posjeta.get()
 
 def main():
   
