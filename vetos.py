@@ -24,6 +24,7 @@
 
 from Tkinter import *
 import tkFont
+import sqlite3 as lite
 
 
 class VetOs(Frame):
@@ -175,6 +176,19 @@ class VetOs(Frame):
         R14.pack()
         R14.place(x=150, y=590, anchor=W)
         
+        
+        L7 = Label(self.narudzba, text="Odaberite datum:", font=self.font, bg="#829ED5")
+        L7.pack()
+        L7.place(x=150, y=700, anchor=W)
+        
+        L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
+        L8.pack()
+        L8.place(x=500, y=700, anchor=W)
+
+        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.narudzba)
+        B2.pack()
+        B2.place(x=200, y=950, anchor=CENTER)
+
         """L2 = Label(narudzba, text="Koja je vaša životinja?")
         L2.grid(column=2,row=4,sticky=W)
         self.zivotinja = StringVar()
@@ -194,28 +208,7 @@ class VetOs(Frame):
         self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
         self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
         self.potvrda3.grid(column=2, row=8, sticky=W)
-
-       
-
-        def OnPressEnter(self,event):
-            self.prikaz.set( self.zivotinja.get())
-            self.prikaz2.focus_set()
-            self.prikaz2.selection_range(0, END)
-
-        def OnPressButton(self):
-            print self.razlog_posjeta.get()"""
         
-        L7 = Label(self.narudzba, text="Odaberite datum:", font=self.font, bg="#829ED5")
-        L7.pack()
-        L7.place(x=150, y=700, anchor=W)
-        
-        L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
-        L8.pack()
-        L8.place(x=500, y=700, anchor=W)
-        
-        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.narudzba)
-        B2.pack()
-        B2.place(x=200, y=950, anchor=CENTER)
     
     def zivotinja(self):
         self.zivotinja = StringVar()
@@ -230,12 +223,47 @@ class VetOs(Frame):
         self.unos3.pack()
         self.unos3.place(x=250, y=585)
 
+    def OnPressEnter(self,event):
+        self.prikaz.set( self.zivotinja.get())
+        self.prikaz2.focus_set()
+        self.prikaz2.selection_range(0, END)
+
+    def OnPressButton(self):
+        print self.razlog_posjeta.get()
+        dodajNarudzbu('kurevija', 'pas', 'loro', 'cijepljenje', '2013-02-25', '16:00')
+        printQuery()
+
 def main():
-  
+    createTable()
+    printQuery()
+
     root = Tk()
     root.geometry("800x600+400+100")
     app = VetOs(root)
     root.mainloop()  
+
+    # Close connection to Db
+    queryCurs.close()
+
+createDb = lite.connect('test.db')
+queryCurs = createDb.cursor()
+
+def createTable():
+    queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
+    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, ime TEXT, 
+    razlog TEXT, datum TEXT, vrijeme TEXT)''')
+
+def dodajNarudzbu(veterinar, vrsta, ime, razlog, datum, vrijeme):
+    queryCurs.execute('''INSERT INTO narudzba 
+        (veterinar, vrsta, ime, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?)''',
+        (veterinar, vrsta, ime, razlog, datum, vrijeme))
+    # Important for writing changes to database file!
+    createDb.commit()
+
+def printQuery():
+    queryCurs.execute("SELECT * FROM narudzba")
+    for i in queryCurs:
+        print i
 
 if __name__ == '__main__':
     main()  
