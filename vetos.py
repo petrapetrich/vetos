@@ -23,6 +23,8 @@
 #takoder se i adminov rapored moze isprintati
 
 from Tkinter import *
+import sqlite3 as lite
+
 
 class VetOs(Frame):
   
@@ -101,13 +103,40 @@ class VetOs(Frame):
 
     def OnPressButton(self):
         print self.razlog_posjeta.get()
+        dodajNarudzbu('kurevija', 'pas', 'loro', 'cijepljenje', '2013-02-25', '16:00')
+        printQuery()
 
 def main():
-  
+    createTable()
+    printQuery()
+
     root = Tk()
     root.geometry("800x600+400+100")
     app = VetOs(root)
     root.mainloop()  
+
+    # Close connection to Db
+    queryCurs.close()
+
+createDb = lite.connect('test.db')
+queryCurs = createDb.cursor()
+
+def createTable():
+    queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
+    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, ime TEXT, 
+    razlog TEXT, datum TEXT, vrijeme TEXT)''')
+
+def dodajNarudzbu(veterinar, vrsta, ime, razlog, datum, vrijeme):
+    queryCurs.execute('''INSERT INTO narudzba 
+        (veterinar, vrsta, ime, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?)''',
+        (veterinar, vrsta, ime, razlog, datum, vrijeme))
+    # Important for writing changes to database file!
+    createDb.commit()
+
+def printQuery():
+    queryCurs.execute("SELECT * FROM narudzba")
+    for i in queryCurs:
+        print i
 
 if __name__ == '__main__':
     main()  
