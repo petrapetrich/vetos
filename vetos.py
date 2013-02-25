@@ -207,7 +207,7 @@ class VetOs(Frame):
         # self.unos3.bind("<Return>", self.OnPressEnter)
         self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
         self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
-        self.potvrda3.grid(column=2, row=8, sticky=W)
+        self.potvrda3.grid(column=2, row=8, sticky=W)"""
         
     
     def zivotinja(self):
