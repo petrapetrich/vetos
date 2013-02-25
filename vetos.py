@@ -25,6 +25,7 @@
 from Tkinter import *
 import tkFont
 
+
 class VetOs(Frame):
 
   
@@ -44,7 +45,7 @@ class VetOs(Frame):
         L1.pack()
         L1.place(x=400, y=100, anchor=CENTER)
         
-        B1 = Button(self, text ="Nova narudžba", command=self.narudzba)
+        B1 = Button(self, text ="Nova rezervacija", command=self.narudzba)
         B1.pack()
         B1.place(x=400, y=400, anchor=CENTER)
         
@@ -53,28 +54,20 @@ class VetOs(Frame):
         B2.place(x=400, y=450, anchor=CENTER)
          
     def raspored(self):
-        # The Toplevel widget is used to provide a separate window
-        # container.
-        raspored = Toplevel(bg="white")
-        raspored.geometry ("800x600+400+200")
-        raspored.title("Raspored")
-        L1 = Label(raspored, text="Prikaz rasporeda")
-        L1.pack()
-        L1.place(relx=0.5, y=0.1, anchor=CENTER)
         
-        B1 = Button(raspored, text ="Nova narudzba", command=self.narudzba)
-        B1.pack()
-        B1.place(relx=0.5, y=0.8, anchor=CENTER)
+        raspored = Toplevel(bg="#829ED5")
+        raspored.geometry ("1000x800+400+200")
+        raspored.title("Raspored")
+        
                      
     def narudzba(self): 
     
        
         self.narudzba = Toplevel(bg="#829ED5" )
         self.narudzba.geometry ("1000x1000+400+200")
-        self.narudzba.title("Nova narudžba")
+        self.narudzba.title("Nova rezervacija")
         
-       
-        L1 = Label(self.narudzba, text="Unesite narudžbu:", font=self.font2, bg="#829ED5")
+        L1 = Label(self.narudzba, text="Unesite rezervaciju:", font=self.font2, bg="#829ED5")
         L1.pack()
         L1.place(x=150, y=80, anchor=W)
         
@@ -219,6 +212,10 @@ class VetOs(Frame):
         L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
         L8.pack()
         L8.place(x=500, y=700, anchor=W)
+        
+        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.narudzba)
+        B2.pack()
+        B2.place(x=200, y=950, anchor=CENTER)
     
     def zivotinja(self):
         self.zivotinja = StringVar()
