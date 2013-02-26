@@ -29,7 +29,6 @@ import sqlite3 as lite
 
 class VetOs(Frame):
 
-  
     def __init__(self, parent):
         Frame.__init__(self, parent, background="#829ED5")   
         self.parent = parent
@@ -63,7 +62,6 @@ class VetOs(Frame):
                      
     def narudzba(self): 
     
-       
         self.narudzba = Toplevel(bg="#829ED5" )
         self.narudzba.geometry ("1000x1000+400+200")
         self.narudzba.title("Nova rezervacija")
@@ -72,55 +70,62 @@ class VetOs(Frame):
         L1.pack()
         L1.place(x=150, y=80, anchor=W)
         
-        L2 = Label (self.narudzba, text="Odaberite vetrinara kod kojeg želite pregled:", font=self.font, bg="#829ED5")
+        L2 = Label (self.narudzba, text="Odaberite vetrinara kod kojeg želite pregled:", 
+        font=self.font, bg="#829ED5")
         L2.pack()
         L2.place(x=150, y=130, anchor=W)
         
-        var=IntVar()
+        self.var=IntVar()
         
-        R1 = Radiobutton(self.narudzba, text="1. veterinar", variable=var, value=1,  bg="#829ED5")
+        R1 = Radiobutton(self.narudzba, text="1. veterinar", 
+        command=self.setVet, variable=self.var, value=1,  bg="#829ED5")
         R1.config(highlightthickness=0)
         R1.pack()
         R1.place(x=150, y=150, anchor=W)
         
-
-
-        R2 = Radiobutton(self.narudzba, text="2. veterinar", variable=var, value=2, bg="#829ED5")
+        R2 = Radiobutton(self.narudzba, text="2. veterinar", 
+        command=self.setVet, variable=self.var, value=2, bg="#829ED5")
         R2.config(highlightthickness=0)
         R2.pack()
         R2.place(x=150, y=170, anchor=W)
 
-        R3 = Radiobutton(self.narudzba, text="3. veterinar", variable=var, value=3, bg="#829ED5")
+        R3 = Radiobutton(self.narudzba, text="3. veterinar", 
+        command=self.setVet, variable=self.var, value=3, bg="#829ED5")
         R3.config(highlightthickness=0)
         R3.pack()
         R3.place(x=150, y=190, anchor=W)
-        
-       
+         
         L3 = Label(self.narudzba, text="Vrsta životinje:",font=self.font, bg="#829ED5")
         L3.pack()
         L3.place(x=150, y=230, anchor=W)
        
-        var1=IntVar()
+        self.var1=IntVar()
         
-        R4 = Radiobutton(self.narudzba, text="pas", variable=var1, value=1,  bg="#829ED5")
+        R4 = Radiobutton(self.narudzba, text="pas", variable=self.var1, 
+        command=self.setVrsta, value=1,  bg="#829ED5")
         R4.config(highlightthickness=0)
         R4.pack()
         R4.place(x=150, y=250, anchor=W)
        
-        R5 = Radiobutton(self.narudzba, text="mačka", variable=var1, value=2,  bg="#829ED5")
+        R5 = Radiobutton(self.narudzba, text="mačka", variable=self.var1,
+        command=self.setVrsta, value=2,  bg="#829ED5")
         R5.config(highlightthickness=0)
         R5.pack()
         R5.place(x=150, y=270, anchor=W)
         
-        R6 = Radiobutton(self.narudzba, text="mala životinja (hrčak, ptica...)", variable=var1, value=3, bg="#829ED5")
+        R6 = Radiobutton(self.narudzba, text="mala životinja (hrčak, ptica...)", 
+        variable=self.var1, value=3, command=self.setVrsta, bg="#829ED5")
         R6.config(highlightthickness=0)
         R6.pack()
         R6.place(x=150, y=290, anchor=W)
         
-        R7 = Radiobutton(self.narudzba, text="ostalo", variable=var1, value=4,  command=self.zivotinja, bg="#829ED5")
+        R7 = Radiobutton(self.narudzba, text="ostalo", variable=self.var1, 
+        value=4,  command=self.zivotinja, bg="#829ED5")
         R7.config(highlightthickness=0)
         R7.pack()
         R7.place(x=150, y=310, anchor=W)
+        
+       
         
         L4 = Label(self.narudzba, text="Ime životinje:", font=self.font, bg="#829ED5")
         L4.pack()
@@ -185,7 +190,7 @@ class VetOs(Frame):
         L8.pack()
         L8.place(x=500, y=700, anchor=W)
 
-        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.narudzba)
+        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.OnPressButton)
         B2.pack()
         B2.place(x=200, y=950, anchor=CENTER)
 
@@ -212,16 +217,39 @@ class VetOs(Frame):
     
     def zivotinja(self):
         self.zivotinja = StringVar()
+        self.zivotinja.set(u"Ovdje unesite vrstu životnje:")
         self.unos2 = Entry(self.narudzba, textvariable=self.zivotinja, width=30)
         self.unos2.pack()
         self.unos2.place(x=250, y=305)
-        self.zivotinja.set(u"Ovdje unesite vrstu životnje:")
+        self.var1.set(4)
+        B = Button(self.narudzba, text ="Potvrdi unos", command=self.setVrsta)
+        B.pack()
+        B.place(x=550, y=315, anchor=CENTER)
         
     def razlog(self):
         self.razlog_posjeta = StringVar()
         self.unos3 = Text(self.narudzba, width=30, height=6)        
         self.unos3.pack()
         self.unos3.place(x=250, y=585)
+        
+    def setVet (self):
+        if (self.var.get()==1) : self.vet="1. veterinar"
+        elif (self.var.get()==2): self.vet="2. veterinar"
+        elif (self.var.get()==3): self.vet="3. veterinar"
+        else: self.vet="nema unosa"
+        
+        print self.vet
+        print self.var.get()
+        
+    def setVrsta (self):
+        if (self.var1.get()==1) : self.vrsta="pas"
+        elif (self.var1.get()==2): self.vrsta="mačka"
+        elif (self.var1.get()==3): self.vrsta="mala zivotinja"
+        elif (self.var1.get()==4): self.vrsta=self.zivotinja.get()
+        else: self.vrsta="nema unosa"
+       
+        print "1. " + str(self.vrsta)
+        print "2. " + str(self.var1.get())
 
     def OnPressEnter(self,event):
         self.prikaz.set( self.zivotinja.get())
@@ -229,8 +257,9 @@ class VetOs(Frame):
         self.prikaz2.selection_range(0, END)
 
     def OnPressButton(self):
-        print self.razlog_posjeta.get()
-        dodajNarudzbu('kurevija', 'pas', 'loro', 'cijepljenje', '2013-02-25', '16:00')
+        #print self.razlog_posjeta.get()
+        dodajNarudzbu(self.vet, self.vrsta, self.ime1, self.ime2, 
+        self.razlog, self.datum, self.vrijeme)
         printQuery()
 
 def main():
@@ -250,13 +279,13 @@ queryCurs = createDb.cursor()
 
 def createTable():
     queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
-    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, ime TEXT, 
-    razlog TEXT, datum TEXT, vrijeme TEXT)''')
+    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, ime1 TEXT, 
+    ime2 TEXT, razlog TEXT, datum TEXT, vrijeme TEXT)''')
 
 def dodajNarudzbu(veterinar, vrsta, ime, razlog, datum, vrijeme):
     queryCurs.execute('''INSERT INTO narudzba 
-        (veterinar, vrsta, ime, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?)''',
-        (veterinar, vrsta, ime, razlog, datum, vrijeme))
+        (veterinar, vrsta, ime1, ime2, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?, ?)''',
+        (veterinar, vrsta, ime1, ime2, razlog, datum, vrijeme))
     # Important for writing changes to database file!
     createDb.commit()
 
