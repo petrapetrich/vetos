@@ -25,6 +25,8 @@
 from Tkinter import *
 import tkFont
 import sqlite3 as lite
+import calendar as cal
+import datetime
 
 
 class VetOs(Frame):
@@ -63,7 +65,7 @@ class VetOs(Frame):
     def narudzba(self): 
     
         self.narudzba = Toplevel(bg="#829ED5" )
-        self.narudzba.geometry ("1000x1000+400+200")
+        self.narudzba.geometry ("1000x1000+400+50")
         self.narudzba.title("Nova rezervacija")
         
         L1 = Label(self.narudzba, text="Unesite rezervaciju:", font=self.font2, bg="#829ED5")
@@ -125,8 +127,6 @@ class VetOs(Frame):
         R7.pack()
         R7.place(x=150, y=310, anchor=W)
         
-       
-        
         L4 = Label(self.narudzba, text="Ime životinje:", font=self.font, bg="#829ED5")
         L4.pack()
         L4.place(x=150, y=350, anchor=W)
@@ -181,14 +181,32 @@ class VetOs(Frame):
         R14.pack()
         R14.place(x=150, y=590, anchor=W)
         
-        
         L7 = Label(self.narudzba, text="Odaberite datum:", font=self.font, bg="#829ED5")
         L7.pack()
-        L7.place(x=150, y=700, anchor=W)
+        L7.place(x=150, y=650, anchor=W)
+
+        now = datetime.datetime.now()
+        self.setDate(now.month, now.year)
+        
+        calOkvir = Frame(self.narudzba)
+        calOkvir.pack()
+        calOkvir.place(x=150, y=750, anchor=W)
+
+        Lcal = Label(calOkvir, text=self.prikaz_mjeseca, font='courier',
+        bg="#829ED5")
+        Lcal.pack(fill=BOTH)
+        # Lcal.place(padx=3, pady=5, anchor=S)
+        Bprev = Button(calOkvir, text="<", font='courier', bg="#829ED5",
+                command=self.prevMonth)
+        Bprev.pack(side=LEFT)
+        Bnext = Button(calOkvir, text=">", font='courier', bg="#829ED5",
+                command=self.nextMonth)
+        Bnext.pack(side=RIGHT)
+
         
         L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
         L8.pack()
-        L8.place(x=500, y=700, anchor=W)
+        L8.place(x=500, y=650, anchor=W)
 
         B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.OnPressButton)
         B2.pack()
@@ -228,11 +246,11 @@ class VetOs(Frame):
         
     def razlog(self):
         self.razlog_posjeta = StringVar()
-        self.unos3 = Text(self.narudzba, width=30, height=6)        
+        self.unos3 = Text(self.narudzba, width=40, height=3)        
         self.unos3.pack()
         self.unos3.place(x=250, y=585)
         
-    def setVet (self):
+    def setVet(self):
         if (self.var.get()==1) : self.vet="1. veterinar"
         elif (self.var.get()==2): self.vet="2. veterinar"
         elif (self.var.get()==3): self.vet="3. veterinar"
@@ -241,7 +259,7 @@ class VetOs(Frame):
         print self.vet
         print self.var.get()
         
-    def setVrsta (self):
+    def setVrsta(self):
         if (self.var1.get()==1) : self.vrsta="pas"
         elif (self.var1.get()==2): self.vrsta="mačka"
         elif (self.var1.get()==3): self.vrsta="mala zivotinja"
@@ -250,6 +268,30 @@ class VetOs(Frame):
        
         print "1. " + str(self.vrsta)
         print "2. " + str(self.var1.get())
+
+    def setDate(self, month, year):
+        self.year = year
+        self.month = month
+        self.prikaz_mjeseca = cal.month(self.year, self.month)
+        print self.prikaz_mjeseca
+
+    def prevMonth(self):
+        month = self.month - 1
+        if (month == 0): 
+            month = 12
+            year = self.year - 1
+        else:
+            year = self.year
+        self.setDate(month, year)
+
+    def nextMonth(self):
+        month = self.month + 1
+        if (month == 13):
+            month = 1
+            year = self.year + 1
+        else:
+            year = self.year
+        self.setDate(month, year)
 
     def OnPressEnter(self,event):
         self.prikaz.set( self.zivotinja.get())
