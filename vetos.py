@@ -131,52 +131,65 @@ class VetOs(Frame):
         L4.pack()
         L4.place(x=150, y=350, anchor=W)
         
-        E4 = Entry(self.narudzba, width=20)
-        E4.pack()
-        E4.place(x=150, y=370, anchor=W)
+        self.E4 = Entry(self.narudzba, width=20)
+        self.E4.pack()
+        self.E4.place(x=150, y=370, anchor=W)
+
+        B4 = Button(self.narudzba, text ="Potvrdi unos", command=self.setImeZiv)
+        B4.pack()
+        B4.place(x=600, y=365, anchor=CENTER)
         
         L5 = Label(self.narudzba, text="Vaše ime i prezime:", font=self.font, bg="#829ED5")
         L5.pack()
         L5.place(x=150, y=410, anchor=W)
         
-        E5 = Entry(self.narudzba, width=30)
-        E5.pack()
-        E5.place(x=150, y=430, anchor=W)
+        self.E5 = Entry(self.narudzba, width=30)
+        self.E5.pack()
+        self.E5.place(x=150, y=430, anchor=W)
         
+        B5 = Button(self.narudzba, text ="Potvrdi unos", command=self.setImeVla)
+        B5.pack()
+        B5.place(x=600, y=430, anchor=CENTER)
         
         L6 = Label(self.narudzba, text="Razlog dolaska:", font=self.font, bg="#829ED5")
         L6.pack()
         L6.place(x=150, y=470, anchor=W)
        
-        var2=IntVar()
+        self.var2=IntVar()
         
-        R8 = Radiobutton(self.narudzba, text="pregled", variable=var2, value=1, bg="#829ED5")
+        R8 = Radiobutton(self.narudzba, text="pregled", variable=self.var2, 
+        value=1, command=self.setRazlog, bg="#829ED5")
         R8.config(highlightthickness=0)
         R8.pack()
         R8.place(x=150, y=490, anchor=W)
        
-        R10 = Radiobutton(self.narudzba, text="pretraga", variable=var2, value=2,  bg="#829ED5")
+        R10 = Radiobutton(self.narudzba, text="pretraga", variable=self.var2,
+        value=2,  command=self.setRazlog, bg="#829ED5")
         R10.config(highlightthickness=0)
         R10.pack()
         R10.place(x=150, y=510, anchor=W)
         
-        R11 = Radiobutton(self.narudzba, text="cijepljenje/čipiranje", variable=var2, value=3,  bg="#829ED5")
+        R11 = Radiobutton(self.narudzba, text="cijepljenje/čipiranje", variable=self.var2,
+        value=3, command=self.setRazlog, bg="#829ED5")
         R11.config(highlightthickness=0)
         R11.pack()
         R11.place(x=150, y=530, anchor=W)
         
         
-        R12 = Radiobutton(self.narudzba, text="kontrola", variable=var2, value=4, bg="#829ED5")
+        R12 = Radiobutton(self.narudzba, text="kontrola", variable=self.var2,
+        value=4, command=self.setRazlog, bg="#829ED5")
         R12.config(highlightthickness=0)
         R12.pack()
         R12.place(x=150, y=550, anchor=W)
         
-        R13 = Radiobutton(self.narudzba, text="operacija", variable=var2, value=5, bg="#829ED5")
+        R13 = Radiobutton(self.narudzba, text="operacija", variable=self.var2, 
+        command=self.setRazlog, value=5, bg="#829ED5")
         R13.config(highlightthickness=0)
         R13.pack()
         R13.place(x=150, y=570, anchor=W)
         
-        R14 = Radiobutton(self.narudzba, text="ostalo", variable=var2, value=6,command=self.razlog, bg="#829ED5")
+        R14 = Radiobutton(self.narudzba, text="ostalo", variable=self.var2, value=6,
+        command=self.razlog, bg="#829ED5")
         R14.config(highlightthickness=0)
         R14.pack()
         R14.place(x=150, y=590, anchor=W)
@@ -188,20 +201,20 @@ class VetOs(Frame):
         now = datetime.datetime.now()
         self.setDate(now.month, now.year)
         
-        calOkvir = Frame(self.narudzba)
-        calOkvir.pack()
-        calOkvir.place(x=150, y=750, anchor=W)
+        self.calOkvir = Frame(self.narudzba)
+        self.calOkvir.pack()
+        self.calOkvir.place(x=150, y=760, anchor=W)
 
-        Lcal = Label(calOkvir, text=self.prikaz_mjeseca, font='courier',
+        self.Lcal = Label(self.calOkvir, text=self.prikaz_mjeseca, font='courier',
         bg="#829ED5")
-        Lcal.pack(fill=BOTH)
+        self.Lcal.pack(fill=BOTH)
         # Lcal.place(padx=3, pady=5, anchor=S)
-        Bprev = Button(calOkvir, text="<", font='courier', bg="#829ED5",
-                command=self.prevMonth)
-        Bprev.pack(side=LEFT)
-        Bnext = Button(calOkvir, text=">", font='courier', bg="#829ED5",
-                command=self.nextMonth)
-        Bnext.pack(side=RIGHT)
+        self.Bprev = Button(self.calOkvir, text="<", font='courier', bg="#829ED5")
+        self.Bprev.pack(side=LEFT)
+        self.Bprev.bind("<Button-1>", self.prevCallback)
+        self.Bnext = Button(self.calOkvir, text=">", font='courier', bg="#829ED5")
+        self.Bnext.bind("<Button-1>", self.nextCallback)
+        self.Bnext.pack(side=RIGHT)
 
         
         L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
@@ -242,13 +255,17 @@ class VetOs(Frame):
         self.var1.set(4)
         B = Button(self.narudzba, text ="Potvrdi unos", command=self.setVrsta)
         B.pack()
-        B.place(x=550, y=315, anchor=CENTER)
+        B.place(x=600, y=315, anchor=CENTER)
         
     def razlog(self):
-        self.razlog_posjeta = StringVar()
-        self.unos3 = Text(self.narudzba, width=40, height=3)        
+        self.unos3 = Text(self.narudzba, width=35, height=2)        
+        self.unos3.insert(INSERT, "ostalo")
         self.unos3.pack()
         self.unos3.place(x=250, y=585)
+        self.var2.set(6)
+        B = Button(self.narudzba, text ="Potvrdi unos", command=self.setRazlog)
+        B.pack()
+        B.place(x=600, y=585, anchor=CENTER)
         
     def setVet(self):
         if (self.var.get()==1) : self.vet="1. veterinar"
@@ -268,6 +285,50 @@ class VetOs(Frame):
        
         print "1. " + str(self.vrsta)
         print "2. " + str(self.var1.get())
+
+    def setImeZiv(self):
+        self.imeZiv = self.E4.get()
+        print self.imeZiv
+
+    def setImeVla(self):
+        self.imeVla = self.E5.get()
+        print self.imeVla
+
+    def setRazlog(self):
+        if (self.var2.get()==1) : self.razlog="pregled"
+        elif (self.var2.get()==2): self.razlog="pretraga"
+        elif (self.var2.get()==3): self.razlog="cijepljenje/čipiranje"
+        elif (self.var2.get()==4): self.razlog="kontrola"
+        elif (self.var2.get()==5): self.razlog="operacija"
+        elif (self.var2.get()==6): self.razlog=self.unos3.get(0.1, END)
+        else: self.vrsta="nema unosa"
+       
+        print "1. " + str(self.razlog)
+        print "2. " + str(self.var2.get())
+
+    def prevCallback(self, event):
+        self.Lcal.pack_forget()
+        self.Bprev.pack_forget()
+        self.Bnext.pack_forget()
+        self.prevMonth()
+        
+        self.Lcal = Label(self.calOkvir, text=self.prikaz_mjeseca, font='courier',
+        bg="#829ED5")
+        self.Lcal.pack(fill=BOTH)
+        self.Bprev.pack(side=LEFT)
+        self.Bnext.pack(side=RIGHT)
+        
+    def nextCallback(self, event):
+        self.Lcal.pack_forget()
+        self.Bprev.pack_forget()
+        self.Bnext.pack_forget()
+        self.nextMonth()
+        
+        self.Lcal = Label(self.calOkvir, text=self.prikaz_mjeseca, font='courier',
+        bg="#829ED5")
+        self.Lcal.pack(fill=BOTH)
+        self.Bprev.pack(side=LEFT)
+        self.Bnext.pack(side=RIGHT)
 
     def setDate(self, month, year):
         self.year = year
@@ -321,13 +382,13 @@ queryCurs = createDb.cursor()
 
 def createTable():
     queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
-    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, ime1 TEXT, 
-    ime2 TEXT, razlog TEXT, datum TEXT, vrijeme TEXT)''')
+    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, imeZiv TEXT, 
+    imeVla TEXT, razlog TEXT, datum TEXT, vrijeme TEXT)''')
 
 def dodajNarudzbu(veterinar, vrsta, ime, razlog, datum, vrijeme):
     queryCurs.execute('''INSERT INTO narudzba 
-        (veterinar, vrsta, ime1, ime2, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?, ?)''',
-        (veterinar, vrsta, ime1, ime2, razlog, datum, vrijeme))
+        (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?, ?)''',
+        (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme))
     # Important for writing changes to database file!
     createDb.commit()
 
