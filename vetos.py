@@ -57,9 +57,9 @@ class VetOs(Frame):
          
     def raspored(self):
         
-        raspored = Toplevel(bg="#829ED5")
+        raspored = toplevel(bg="#829ed5")
         raspored.geometry ("1000x800+400+200")
-        raspored.title("Raspored")
+        raspored.title("raspored")
         
                      
     def narudzba(self): 
@@ -221,7 +221,7 @@ class VetOs(Frame):
         L8.pack()
         L8.place(x=500, y=650, anchor=W)
 
-        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.OnPressButton)
+        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.insertBase)
         B2.pack()
         B2.place(x=200, y=950, anchor=CENTER)
 
@@ -244,7 +244,6 @@ class VetOs(Frame):
         self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
         self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
         self.potvrda3.grid(column=2, row=8, sticky=W)"""
-        
     
     def zivotinja(self):
         self.zivotinja = StringVar()
@@ -265,7 +264,7 @@ class VetOs(Frame):
         self.var2.set(6)
         B = Button(self.narudzba, text ="Potvrdi unos", command=self.setRazlog)
         B.pack()
-        B.place(x=600, y=585, anchor=CENTER)
+        B.place(x=600, y=600, anchor=CENTER)
         
     def setVet(self):
         if (self.var.get()==1) : self.vet="1. veterinar"
@@ -275,6 +274,7 @@ class VetOs(Frame):
         
         print self.vet
         print self.var.get()
+        return self.vet
         
     def setVrsta(self):
         if (self.var1.get()==1) : self.vrsta="pas"
@@ -285,14 +285,17 @@ class VetOs(Frame):
        
         print "1. " + str(self.vrsta)
         print "2. " + str(self.var1.get())
+        return self.vrsta
 
     def setImeZiv(self):
         self.imeZiv = self.E4.get()
         print self.imeZiv
+        return self.imeZiv
 
     def setImeVla(self):
         self.imeVla = self.E5.get()
         print self.imeVla
+        return self.imeVla
 
     def setRazlog(self):
         if (self.var2.get()==1) : self.razlog="pregled"
@@ -305,6 +308,8 @@ class VetOs(Frame):
        
         print "1. " + str(self.razlog)
         print "2. " + str(self.var2.get())
+
+        return self.razlog
 
     def prevCallback(self, event):
         self.Lcal.pack_forget()
@@ -354,15 +359,16 @@ class VetOs(Frame):
             year = self.year
         self.setDate(month, year)
 
-    def OnPressEnter(self,event):
-        self.prikaz.set( self.zivotinja.get())
-        self.prikaz2.focus_set()
-        self.prikaz2.selection_range(0, END)
-
-    def OnPressButton(self):
-        #print self.razlog_posjeta.get()
-        dodajNarudzbu(self.vet, self.vrsta, self.ime1, self.ime2, 
-        self.razlog, self.datum, self.vrijeme)
+    def insertBase(self):
+        vet = self.setVet()
+        vrsta = self.setVrsta()
+        imeZiv = self.setImeZiv()
+        imeVla = self.setImeVla()
+        razlog = self.setRazlog()
+        datum = "2013-02-26"
+        vrijeme = "16:00"
+        print vet, vrsta, imeZiv, razlog, datum, vrijeme
+        dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum, vrijeme)
         printQuery()
 
 def main():
@@ -385,7 +391,7 @@ def createTable():
     (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, imeZiv TEXT, 
     imeVla TEXT, razlog TEXT, datum TEXT, vrijeme TEXT)''')
 
-def dodajNarudzbu(veterinar, vrsta, ime, razlog, datum, vrijeme):
+def dodajNarudzbu(veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme):
     queryCurs.execute('''INSERT INTO narudzba 
         (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?, ?)''',
         (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme))
