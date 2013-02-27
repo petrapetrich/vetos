@@ -414,6 +414,8 @@ class VetOs(Frame):
 def main():
     createTable()
     printQuery()
+    imeVet = "1. veterinar"
+    printVet(imeVet)
 
     root = Tk()
     root.geometry("800x600+400+100")
@@ -444,8 +446,12 @@ def printQuery():
         print i
 
 def printVet(imeVet):
-    pass
-    #queryCurs.execute("SELECT veterinar, k
+    vet = imeVet
+    queryCurs.execute('''SELECT datum, imeZiv FROM narudzba WHERE
+    veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (vet,))
+    for i in queryCurs:
+        print i
+
 
 if __name__ == '__main__':
     main()  
