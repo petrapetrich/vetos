@@ -57,10 +57,21 @@ class VetOs(Frame):
          
     def raspored(self):
         
-        raspored = Toplevel(bg="#829ed5")
-        raspored.geometry ("1000x800+100+100")
-        raspored.title(u"raspored")
+        self.raspored = Toplevel(bg="#829ed5")
+        self.raspored.geometry ("1000x800+100+100")
+        self.raspored.title(u"raspored")
         
+        dugme_vet1 = Button(self.raspored, text =u"1. veterinar")
+        dugme_vet1.pack()
+        dugme_vet1.place(x=300, y=100, anchor=CENTER)
+       
+        dugme_vet2 = Button(self.raspored, text =u"2. veterinar")
+        dugme_vet2.pack()
+        dugme_vet2.place(x=500, y=100, anchor=CENTER)
+        
+        dugme_vet3 = Button(self.raspored, text =u"3. veterinar")
+        dugme_vet3.pack()
+        dugme_vet3.place(x=700, y=100, anchor=CENTER)
                      
     def narudzba(self): 
     
