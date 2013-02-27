@@ -45,7 +45,7 @@ class VetOs(Frame):
         self.pack(fill=BOTH, expand=1)
         
         string=u"vetOS - aplikacija za veterinare"
-        L1 = Label(self, text=string,  font=self.font2, bg="#829ED5")
+        L1 = Label(self, text=string,  font=self.font2, bg="#829ed5")
         L1.pack()
         L1.place(x=400, y=100, anchor=CENTER)
         
@@ -63,33 +63,57 @@ class VetOs(Frame):
         self.raspored.geometry ("1000x800+100+100")
         self.raspored.title(u"raspored")
         
+        okvir1 =  Frame (self.raspored, bg="#829ed5")
+        okvir1.pack()
+        okvir1.place(x=500, y=50, anchor=CENTER)
         
-        """dugme_vet1 = Button(self.raspored, text =u"1. veterinar")
-        dugme_vet1.pack()
-        dugme_vet1.place(x=300, y=100, anchor=CENTER)
+        dugme_vet1 = Button(okvir1, text =u"1. veterinar")
+        dugme_vet1.grid(column=1, row=1, sticky=N, padx=10 , pady=10)
        
-        dugme_vet2 = Button(self.raspored, text =u"2. veterinar")
-        dugme_vet2.pack()
-        dugme_vet2.place(x=500, y=100, anchor=CENTER)
+        dugme_vet2 = Button(okvir1, text =u"2. veterinar")
+        dugme_vet2.grid(column=2, row=1, sticky=N, padx=10 , pady=10)
+            
+            
+        dugme_vet3 = Button(okvir1, text =u"3. veterinar")
+        dugme_vet3.grid(column=3, row=1, sticky=N, padx=10 , pady=10)
         
-        dugme_vet3 = Button(self.raspored, text =u"3. veterinar")
-        dugme_vet3.pack()
-        dugme_vet3.place(x=700, y=100, anchor=CENTER)"""
+               
+        okvir2 = Frame (self.raspored, bg="#A1B7E2")
+        okvir2.pack()
+        okvir2.place(x=500, y=150, anchor = CENTER)
+       
+        lista = self.setDan()
+                
+        dan1 = Label(okvir2, text=lista[0], bg="#829ED5", font=self.font2)
+        dan1.grid(column=1, row=1, sticky=N, padx=25, pady=10)
         
+        dan2 = Label(okvir2, text=lista[1], bg="#829ED5", font=self.font2)
+        dan2.grid(column=2, row=1, sticky=N, padx=25, pady=10)
+        
+        dan3 = Label(okvir2, text=lista[2], bg="#829ED5", font=self.font2)
+        dan3.grid(column=3, row=1, sticky=N, padx=25, pady=10)
+        
+        dan4 = Label(okvir2, text=lista[3], bg="#829ED5", font=self.font2)
+        dan4.grid(column=4, row=1, sticky=N, padx=25, pady=10)
+        
+        dan5 = Label(okvir2, text=lista[4], bg="#829ED5", font=self.font2)
+        dan5.grid(column=5, row=1, sticky=N, padx=25, pady=10)
+        
+        dan6 = Label(okvir2, text=lista[5], bg="#829ED5", font=self.font2)
+        dan6.grid(column=6, row=1, sticky=N, padx=25, pady=10)
         
     def setDan(self):
         
-        d = timedelta(days =1)
+        d = timedelta(days=1)
         lista= [None] * 6       
         for i in range (6):
             if (i==0):
+                lista[i] = datetime.date.today() - d
+            elif (i==1): 
                 lista[i] = datetime.date.today()
             else:
                 lista[i] = lista[i-1] + d
-        
-        print lista[1]
-        
-        
+        return lista
         
                      
     def narudzba(self): 
