@@ -360,10 +360,9 @@ class VetOs(Frame):
         imeZiv = self.setImeZiv()
         imeVla = self.setImeVla()
         razlog = self.setRazlog()
-        datum = u"2013-02-26"
-        vrijeme = u"16:00"
-        print vet, vrsta, imeZiv, razlog, datum, vrijeme
-        dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum, vrijeme)
+        datum = u"2013-02-26 15:00"
+        print vet, vrsta, imeZiv, razlog, datum 
+        dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum)
         printQuery()
 
 def main():
@@ -384,12 +383,12 @@ queryCurs = createDb.cursor()
 def createTable():
     queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
     (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, imeZiv TEXT, 
-    imeVla TEXT, razlog TEXT, datum TEXT, vrijeme TEXT)''')
+    imeVla TEXT, razlog TEXT, datum DATETIME)''')
 
-def dodajNarudzbu(veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme):
+def dodajNarudzbu(veterinar, vrsta, imeZiv, imeVla, razlog, datum):
     queryCurs.execute('''INSERT INTO narudzba 
-        (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme) VALUES (?, ?, ?, ?, ?, ?, ?)''',
-        (veterinar, vrsta, imeZiv, imeVla, razlog, datum, vrijeme))
+        (veterinar, vrsta, imeZiv, imeVla, razlog, datum) VALUES (?, ?, ?, ?, ?, ?)''',
+        (veterinar, vrsta, imeZiv, imeVla, razlog, datum))
     # Important for writing changes to database file!
     createDb.commit()
 
@@ -397,6 +396,10 @@ def printQuery():
     queryCurs.execute("SELECT * FROM narudzba")
     for i in queryCurs:
         print i
+
+def printVet(imeVet):
+    pass
+    #queryCurs.execute("SELECT veterinar, k
 
 if __name__ == '__main__':
     main()  
