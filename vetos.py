@@ -39,95 +39,95 @@ class VetOs(Frame):
         self.initUI()
       
     def initUI(self):
-        self.parent.title("vetOS")
+        self.parent.title(u"vetOS")
         self.pack(fill=BOTH, expand=1)
         
-        string="""vetOS - aplikacija za veterinare """
+        string=u"vetOS - aplikacija za veterinare"
         L1 = Label(self, text=string,  font=self.font2, bg="#829ED5")
         L1.pack()
         L1.place(x=400, y=100, anchor=CENTER)
         
-        B1 = Button(self, text ="Nova rezervacija", command=self.narudzba)
+        B1 = Button(self, text =u"Nova rezervacija", command=self.narudzba)
         B1.pack()
         B1.place(x=400, y=400, anchor=CENTER)
         
-        B2 = Button(self, text ="Prikaz rasporeda", command=self.raspored)
+        B2 = Button(self, text =u"Prikaz rasporeda", command=self.raspored)
         B2.pack()
         B2.place(x=400, y=450, anchor=CENTER)
          
     def raspored(self):
         
-        raspored = toplevel(bg="#829ed5")
-        raspored.geometry ("1000x800+400+200")
-        raspored.title("raspored")
+        raspored = Toplevel(bg="#829ed5")
+        raspored.geometry ("1000x800+100+100")
+        raspored.title(u"raspored")
         
                      
     def narudzba(self): 
     
         self.narudzba = Toplevel(bg="#829ED5" )
         self.narudzba.geometry ("1000x1000+400+50")
-        self.narudzba.title("Nova rezervacija")
+        self.narudzba.title(u"Nova rezervacija")
         
-        L1 = Label(self.narudzba, text="Unesite rezervaciju:", font=self.font2, bg="#829ED5")
+        L1 = Label(self.narudzba, text=u"Unesite rezervaciju:", font=self.font2, bg="#829ED5")
         L1.pack()
         L1.place(x=150, y=80, anchor=W)
         
-        L2 = Label (self.narudzba, text="Odaberite vetrinara kod kojeg želite pregled:", 
+        L2 = Label (self.narudzba, text=u"Odaberite vetrinara kod kojeg želite pregled:", 
         font=self.font, bg="#829ED5")
         L2.pack()
         L2.place(x=150, y=130, anchor=W)
         
         self.var=IntVar()
         
-        R1 = Radiobutton(self.narudzba, text="1. veterinar", 
+        R1 = Radiobutton(self.narudzba, text=u"1. veterinar", 
         command=self.setVet, variable=self.var, value=1,  bg="#829ED5")
         R1.config(highlightthickness=0)
         R1.pack()
         R1.place(x=150, y=150, anchor=W)
         
-        R2 = Radiobutton(self.narudzba, text="2. veterinar", 
+        R2 = Radiobutton(self.narudzba, text=u"2. veterinar", 
         command=self.setVet, variable=self.var, value=2, bg="#829ED5")
         R2.config(highlightthickness=0)
         R2.pack()
         R2.place(x=150, y=170, anchor=W)
 
-        R3 = Radiobutton(self.narudzba, text="3. veterinar", 
+        R3 = Radiobutton(self.narudzba, text=u"3. veterinar", 
         command=self.setVet, variable=self.var, value=3, bg="#829ED5")
         R3.config(highlightthickness=0)
         R3.pack()
         R3.place(x=150, y=190, anchor=W)
          
-        L3 = Label(self.narudzba, text="Vrsta životinje:",font=self.font, bg="#829ED5")
+        L3 = Label(self.narudzba, text=u"Vrsta životinje:",font=self.font, bg="#829ED5")
         L3.pack()
         L3.place(x=150, y=230, anchor=W)
        
         self.var1=IntVar()
         
-        R4 = Radiobutton(self.narudzba, text="pas", variable=self.var1, 
+        R4 = Radiobutton(self.narudzba, text=u"pas", variable=self.var1, 
         command=self.setVrsta, value=1,  bg="#829ED5")
         R4.config(highlightthickness=0)
         R4.pack()
         R4.place(x=150, y=250, anchor=W)
        
-        R5 = Radiobutton(self.narudzba, text="mačka", variable=self.var1,
+        R5 = Radiobutton(self.narudzba, text=u"mačka", variable=self.var1,
         command=self.setVrsta, value=2,  bg="#829ED5")
         R5.config(highlightthickness=0)
         R5.pack()
         R5.place(x=150, y=270, anchor=W)
         
-        R6 = Radiobutton(self.narudzba, text="mala životinja (hrčak, ptica...)", 
+        R6 = Radiobutton(self.narudzba, text=u"mala životinja (hrčak, ptica...)", 
         variable=self.var1, value=3, command=self.setVrsta, bg="#829ED5")
         R6.config(highlightthickness=0)
         R6.pack()
         R6.place(x=150, y=290, anchor=W)
         
-        R7 = Radiobutton(self.narudzba, text="ostalo", variable=self.var1, 
+        R7 = Radiobutton(self.narudzba, text=u"ostalo", variable=self.var1, 
         value=4,  command=self.zivotinja, bg="#829ED5")
         R7.config(highlightthickness=0)
         R7.pack()
         R7.place(x=150, y=310, anchor=W)
         
-        L4 = Label(self.narudzba, text="Ime životinje:", font=self.font, bg="#829ED5")
+        L4 = Label(self.narudzba, text=u"Ime životinje:", font=self.font, bg="#829ED5")
         L4.pack()
         L4.place(x=150, y=350, anchor=W)
         
@@ -135,11 +135,11 @@ class VetOs(Frame):
         self.E4.pack()
         self.E4.place(x=150, y=370, anchor=W)
 
-        B4 = Button(self.narudzba, text ="Potvrdi unos", command=self.setImeZiv)
+        B4 = Button(self.narudzba, text =u"Potvrdi unos", command=self.setImeZiv)
         B4.pack()
         B4.place(x=600, y=365, anchor=CENTER)
         
-        L5 = Label(self.narudzba, text="Vaše ime i prezime:", font=self.font, bg="#829ED5")
+        L5 = Label(self.narudzba, text=u"Vaše ime i prezime:", font=self.font, bg="#829ED5")
         L5.pack()
         L5.place(x=150, y=410, anchor=W)
         
@@ -147,54 +147,54 @@ class VetOs(Frame):
         self.E5.pack()
         self.E5.place(x=150, y=430, anchor=W)
         
-        B5 = Button(self.narudzba, text ="Potvrdi unos", command=self.setImeVla)
+        B5 = Button(self.narudzba, text =u"Potvrdi unos", command=self.setImeVla)
         B5.pack()
         B5.place(x=600, y=430, anchor=CENTER)
         
-        L6 = Label(self.narudzba, text="Razlog dolaska:", font=self.font, bg="#829ED5")
+        L6 = Label(self.narudzba, text=u"Razlog dolaska:", font=self.font, bg="#829ED5")
         L6.pack()
         L6.place(x=150, y=470, anchor=W)
        
         self.var2=IntVar()
         
-        R8 = Radiobutton(self.narudzba, text="pregled", variable=self.var2, 
+        R8 = Radiobutton(self.narudzba, text=u"pregled", variable=self.var2, 
         value=1, command=self.setRazlog, bg="#829ED5")
         R8.config(highlightthickness=0)
         R8.pack()
         R8.place(x=150, y=490, anchor=W)
        
-        R10 = Radiobutton(self.narudzba, text="pretraga", variable=self.var2,
+        R10 = Radiobutton(self.narudzba, text=u"pretraga", variable=self.var2,
         value=2,  command=self.setRazlog, bg="#829ED5")
         R10.config(highlightthickness=0)
         R10.pack()
         R10.place(x=150, y=510, anchor=W)
         
-        R11 = Radiobutton(self.narudzba, text="cijepljenje/čipiranje", variable=self.var2,
+        R11 = Radiobutton(self.narudzba, text=u"cijepljenje/čipiranje", variable=self.var2,
         value=3, command=self.setRazlog, bg="#829ED5")
         R11.config(highlightthickness=0)
         R11.pack()
         R11.place(x=150, y=530, anchor=W)
         
         
-        R12 = Radiobutton(self.narudzba, text="kontrola", variable=self.var2,
+        R12 = Radiobutton(self.narudzba, text=u"kontrola", variable=self.var2,
         value=4, command=self.setRazlog, bg="#829ED5")
         R12.config(highlightthickness=0)
         R12.pack()
         R12.place(x=150, y=550, anchor=W)
         
-        R13 = Radiobutton(self.narudzba, text="operacija", variable=self.var2, 
+        R13 = Radiobutton(self.narudzba, text=u"operacija", variable=self.var2, 
         command=self.setRazlog, value=5, bg="#829ED5")
         R13.config(highlightthickness=0)
         R13.pack()
         R13.place(x=150, y=570, anchor=W)
         
-        R14 = Radiobutton(self.narudzba, text="ostalo", variable=self.var2, value=6,
+        R14 = Radiobutton(self.narudzba, text=u"ostalo", variable=self.var2, value=6,
         command=self.razlog, bg="#829ED5")
         R14.config(highlightthickness=0)
         R14.pack()
         R14.place(x=150, y=590, anchor=W)
         
-        L7 = Label(self.narudzba, text="Odaberite datum:", font=self.font, bg="#829ED5")
+        L7 = Label(self.narudzba, text=u"Odaberite datum:", font=self.font, bg="#829ED5")
         L7.pack()
         L7.place(x=150, y=650, anchor=W)
 
@@ -217,11 +217,11 @@ class VetOs(Frame):
         self.Bnext.pack(side=RIGHT)
 
         
-        L8 = Label(self.narudzba, text="Odaberite vrijeme:", font=self.font, bg="#829ED5")
+        L8 = Label(self.narudzba, text=u"Odaberite vrijeme:", font=self.font, bg="#829ED5")
         L8.pack()
         L8.place(x=500, y=650, anchor=W)
 
-        B2 = Button(self.narudzba, text ="Potvrdi rezervaciju", command=self.insertBase)
+        B2 = Button(self.narudzba, text =u"Potvrdi rezervaciju", command=self.insertBase)
         B2.pack()
         B2.place(x=200, y=950, anchor=CENTER)
 
@@ -252,24 +252,24 @@ class VetOs(Frame):
         self.unos2.pack()
         self.unos2.place(x=250, y=305)
         self.var1.set(4)
-        B = Button(self.narudzba, text ="Potvrdi unos", command=self.setVrsta)
+        B = Button(self.narudzba, text =u"Potvrdi unos", command=self.setVrsta)
         B.pack()
         B.place(x=600, y=315, anchor=CENTER)
         
     def razlog(self):
         self.unos3 = Text(self.narudzba, width=35, height=2)        
-        self.unos3.insert(INSERT, "ostalo")
+        self.unos3.insert(INSERT, u"ostalo")
         self.unos3.pack()
         self.unos3.place(x=250, y=585)
         self.var2.set(6)
-        B = Button(self.narudzba, text ="Potvrdi unos", command=self.setRazlog)
+        B = Button(self.narudzba, text =u"Potvrdi unos", command=self.setRazlog)
         B.pack()
         B.place(x=600, y=600, anchor=CENTER)
         
     def setVet(self):
-        if (self.var.get()==1) : self.vet="1. veterinar"
-        elif (self.var.get()==2): self.vet="2. veterinar"
-        elif (self.var.get()==3): self.vet="3. veterinar"
+        if (self.var.get()==1) : self.vet=u"1. veterinar"
+        elif (self.var.get()==2): self.vet=u"2. veterinar"
+        elif (self.var.get()==3): self.vet=u"3. veterinar"
         else: self.vet="nema unosa"
         
         print self.vet
@@ -277,14 +277,12 @@ class VetOs(Frame):
         return self.vet
         
     def setVrsta(self):
-        if (self.var1.get()==1) : self.vrsta="pas"
-        elif (self.var1.get()==2): self.vrsta="mačka"
-        elif (self.var1.get()==3): self.vrsta="mala zivotinja"
+        if (self.var1.get()==1) : self.vrsta=u"pas"
+        elif (self.var1.get()==2): self.vrsta=u"mačka"
+        elif (self.var1.get()==3): self.vrsta=u"mala zivotinja"
         elif (self.var1.get()==4): self.vrsta=self.zivotinja.get()
-        else: self.vrsta="nema unosa"
+        else: self.vrsta=u"nema unosa"
        
-        print "1. " + str(self.vrsta)
-        print "2. " + str(self.var1.get())
         return self.vrsta
 
     def setImeZiv(self):
@@ -298,17 +296,14 @@ class VetOs(Frame):
         return self.imeVla
 
     def setRazlog(self):
-        if (self.var2.get()==1) : self.razlog="pregled"
-        elif (self.var2.get()==2): self.razlog="pretraga"
-        elif (self.var2.get()==3): self.razlog="cijepljenje/čipiranje"
-        elif (self.var2.get()==4): self.razlog="kontrola"
-        elif (self.var2.get()==5): self.razlog="operacija"
+        if (self.var2.get()==1) : self.razlog=u"pregled"
+        elif (self.var2.get()==2): self.razlog=u"pretraga"
+        elif (self.var2.get()==3): self.razlog=u"cijepljenje/čipiranje"
+        elif (self.var2.get()==4): self.razlog=u"kontrola"
+        elif (self.var2.get()==5): self.razlog=u"operacija"
         elif (self.var2.get()==6): self.razlog=self.unos3.get(0.1, END)
-        else: self.vrsta="nema unosa"
+        else: self.vrsta=u"nema unosa"
        
-        print "1. " + str(self.razlog)
-        print "2. " + str(self.var2.get())
-
         return self.razlog
 
     def prevCallback(self, event):
@@ -365,8 +360,8 @@ class VetOs(Frame):
         imeZiv = self.setImeZiv()
         imeVla = self.setImeVla()
         razlog = self.setRazlog()
-        datum = "2013-02-26"
-        vrijeme = "16:00"
+        datum = u"2013-02-26"
+        vrijeme = u"16:00"
         print vet, vrsta, imeZiv, razlog, datum, vrijeme
         dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum, vrijeme)
         printQuery()
