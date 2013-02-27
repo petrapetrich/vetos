@@ -220,6 +220,17 @@ class VetOs(Frame):
         L8 = Label(self.narudzba, text=u"Odaberite vrijeme:", font=self.font, bg="#829ED5")
         L8.pack()
         L8.place(x=500, y=650, anchor=W)
+        L9 = Label(self.narudzba, text=u"YYYY-MM-DD HH:MM", font=self.font, bg="#829ED5")
+        L9.pack()
+        L9.place(x=500, y=675, anchor=W)
+
+        self.E8 = Entry(self.narudzba, width=20)
+        self.E8.pack()
+        self.E8.place(x=500, y=700, anchor=W)
+
+        B8 = Button(self.narudzba, text =u"Potvrdi unos", command=self.setDatum)
+        B8.pack()
+        B8.place(x=500, y=750, anchor=W)
 
         B2 = Button(self.narudzba, text =u"Potvrdi rezervaciju", command=self.insertBase)
         B2.pack()
@@ -306,6 +317,11 @@ class VetOs(Frame):
        
         return self.razlog
 
+    def setDatum(self):
+        datum = self.E8.get()
+
+        return datum
+
     def prevCallback(self, event):
         self.Lcal.pack_forget()
         self.Bprev.pack_forget()
@@ -360,7 +376,7 @@ class VetOs(Frame):
         imeZiv = self.setImeZiv()
         imeVla = self.setImeVla()
         razlog = self.setRazlog()
-        datum = u"2013-02-26 15:00"
+        datum = self.setDatum()
         print vet, vrsta, imeZiv, razlog, datum 
         dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum)
         printQuery()
