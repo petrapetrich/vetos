@@ -471,11 +471,11 @@ def printQuery():
 
 def printVet(imeVet):
     vet = imeVet
-    queryCurs.execute('''SELECT datum, imeZiv FROM narudzba WHERE
+    queryCurs.execute('''SELECT datum, vrsta, imeZiv, razlog FROM narudzba WHERE
     veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (vet,))
     for i in queryCurs:
-        print i
-
+        print i[0]
+    return queryCurs
 
 if __name__ == '__main__':
     main()  
