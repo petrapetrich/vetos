@@ -23,10 +23,12 @@
 #takoder se i adminov rapored moze isprintati
 
 from Tkinter import *
+from datetime import timedelta
 import tkFont
 import sqlite3 as lite
 import calendar as cal
 import datetime
+import time
 
 
 class VetOs(Frame):
@@ -61,7 +63,8 @@ class VetOs(Frame):
         self.raspored.geometry ("1000x800+100+100")
         self.raspored.title(u"raspored")
         
-        dugme_vet1 = Button(self.raspored, text =u"1. veterinar")
+        
+        """dugme_vet1 = Button(self.raspored, text =u"1. veterinar")
         dugme_vet1.pack()
         dugme_vet1.place(x=300, y=100, anchor=CENTER)
        
@@ -71,7 +74,23 @@ class VetOs(Frame):
         
         dugme_vet3 = Button(self.raspored, text =u"3. veterinar")
         dugme_vet3.pack()
-        dugme_vet3.place(x=700, y=100, anchor=CENTER)
+        dugme_vet3.place(x=700, y=100, anchor=CENTER)"""
+        
+        
+    def setDan(self):
+        
+        d = timedelta(days =1)
+        lista= [None] * 6       
+        for i in range (6):
+            if (i==0):
+                lista[i] = datetime.date.today()
+            else:
+                lista[i] = lista[i-1] + d
+        
+        print lista[1]
+        
+        
+        
                      
     def narudzba(self): 
     
