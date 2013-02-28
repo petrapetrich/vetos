@@ -66,8 +66,9 @@ class VetOs(Frame):
         okvir1 =  Frame (self.raspored, bg="#829ed5")
         okvir1.pack()
         okvir1.place(x=500, y=50, anchor=CENTER)
-        
-        dugme_vet1 = Button(okvir1, text =u"1. veterinar")
+              
+        dugme_vet1 = Button(okvir1, text =u"1. veterinar",
+        command = self.postaviZapise)
         dugme_vet1.grid(column=1, row=1, sticky=N, padx=10 , pady=10)
        
         dugme_vet2 = Button(okvir1, text =u"2. veterinar")
@@ -78,28 +79,29 @@ class VetOs(Frame):
         dugme_vet3.grid(column=3, row=1, sticky=N, padx=10 , pady=10)
         
                
-        okvir2 = Frame (self.raspored, bg="#A1B7E2")
-        okvir2.pack()
-        okvir2.place(x=500, y=150, anchor = CENTER)
-       
-        lista = self.setDan()
+        self.okvir2 = Frame (self.raspored, bg="#A1B7E2")
+        self.okvir2.pack()
+        self.okvir2.place(x=500, y=250, anchor = CENTER)
+        self.setDan()
+          
+        self.lista = self.setDan()
                 
-        dan1 = Label(okvir2, text=lista[0], bg="#829ED5", font=self.font2)
+        dan1 = Label(self.okvir2, text=self.lista[0], bg="#829ED5", font=self.font2)
         dan1.grid(column=1, row=1, sticky=N, padx=25, pady=10)
         
-        dan2 = Label(okvir2, text=lista[1], bg="#829ED5", font=self.font2)
+        dan2 = Label(self.okvir2, text=self.lista[1], bg="#829ED5", font=self.font2)
         dan2.grid(column=2, row=1, sticky=N, padx=25, pady=10)
         
-        dan3 = Label(okvir2, text=lista[2], bg="#829ED5", font=self.font2)
+        dan3 = Label(self.okvir2, text=self.lista[2], bg="#829ED5", font=self.font2)
         dan3.grid(column=3, row=1, sticky=N, padx=25, pady=10)
         
-        dan4 = Label(okvir2, text=lista[3], bg="#829ED5", font=self.font2)
+        dan4 = Label(self.okvir2, text=self.lista[3], bg="#829ED5", font=self.font2)
         dan4.grid(column=4, row=1, sticky=N, padx=25, pady=10)
         
-        dan5 = Label(okvir2, text=lista[4], bg="#829ED5", font=self.font2)
+        dan5 = Label(self.okvir2, text=self.lista[4], bg="#829ED5", font=self.font2)
         dan5.grid(column=5, row=1, sticky=N, padx=25, pady=10)
         
-        dan6 = Label(okvir2, text=lista[5], bg="#829ED5", font=self.font2)
+        dan6 = Label(self.okvir2, text=self.lista[5], bg="#829ED5", font=self.font2)
         dan6.grid(column=6, row=1, sticky=N, padx=25, pady=10)
         
     def setDan(self):
@@ -113,9 +115,49 @@ class VetOs(Frame):
                 lista[i] = datetime.date.today()
             else:
                 lista[i] = lista[i-1] + d
-        return lista
+        return lista        
         
-                     
+    def postaviRaspored(self, dan, vrijeme, vrsta, imeZiv, razlog):
+                
+        print "postaviRaspored"
+        termin = vrijeme + "\n" + vrsta + "\n" + imeZiv + "\n" + razlog + "\n"
+        vrijeme = time.strptime(vrijeme, "%H:%M")
+        granicno1 = time.strptime("12:00", "%H:%M")
+        granicno2 = time.strptime("12:00", "%H:%M")
+        dan = datetime.datetime.strptime(dan, '%Y-%m-%d')
+        dan = dan.date()
+                        
+        for i in range(6):
+            if(dan == self.lista[i]):
+                print "lista"
+                for j in range (4):
+                    if(vrijeme <= granicno1):
+                        Z1 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        Z1.grid(column = i, row=2, sticky=N)
+                    elif(vrijeme > granicno1 and vrijeme<=granicno2):
+                        Z2 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        Z2.grid(column = i, row=3, sticky=N)
+                    elif(vrijeme > granicno2):
+                        Z3 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        Z3.grid(column = i, row=4, sticky=N)
+                    else: print "pogresan unos"
+    
+    def postaviZapise(self):
+        
+        print "postaviZapis"
+        vet = "1. veterinar"
+        zapisi = printVet(vet)
+                
+        for i in zapisi:
+            datum = i[0].split()
+            dan = datum[0]
+            vrijeme = datum[1]
+            vrsta = i[1]
+            imeZiv = i[2]
+            razlog = i[3]
+            
+            self.postaviRaspored(dan, vrijeme, vrsta, imeZiv, razlog)
+                          
     def narudzba(self): 
     
         self.narudzba = Toplevel(bg="#829ED5" )
@@ -473,8 +515,8 @@ def printVet(imeVet):
     vet = imeVet
     queryCurs.execute('''SELECT datum, vrsta, imeZiv, razlog FROM narudzba WHERE
     veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (vet,))
-    for i in queryCurs:
-        print i[0]
+    #for i in queryCurs:
+    #    print i[0]
     return queryCurs
 
 if __name__ == '__main__':
