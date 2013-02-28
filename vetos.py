@@ -66,16 +66,17 @@ class VetOs(Frame):
         okvir1 =  Frame (self.raspored, bg="#829ed5")
         okvir1.pack()
         okvir1.place(x=500, y=50, anchor=CENTER)
-              
+        
         dugme_vet1 = Button(okvir1, text =u"1. veterinar",
-        command = self.postaviZapise)
+        command = self.pozoviVet1)
         dugme_vet1.grid(column=1, row=1, sticky=N, padx=10 , pady=10)
-       
-        dugme_vet2 = Button(okvir1, text =u"2. veterinar")
+        
+        dugme_vet2 = Button(okvir1, text =u"2. veterinar",
+        command = self.pozoviVet2)
         dugme_vet2.grid(column=2, row=1, sticky=N, padx=10 , pady=10)
-            
-            
-        dugme_vet3 = Button(okvir1, text =u"3. veterinar")
+       
+        dugme_vet3 = Button(okvir1, text =u"3. veterinar",
+        command = self.pozoviVet3)
         dugme_vet3.grid(column=3, row=1, sticky=N, padx=10 , pady=10)
         
                
@@ -117,46 +118,66 @@ class VetOs(Frame):
                 lista[i] = lista[i-1] + d
         return lista        
         
-    def postaviRaspored(self, dan, vrijeme, vrsta, imeZiv, razlog):
-                
-        print "postaviRaspored"
-        termin = vrijeme + "\n" + vrsta + "\n" + imeZiv + "\n" + razlog + "\n"
+    def postaviRaspored(self, dan, vrijeme, vrsta, imeZiv, imeVla, razlog):
+
+        termin = vrijeme + "\n" + vrsta + "\n" + imeZiv + "\n" + imeVla + "\n" + razlog
         vrijeme = time.strptime(vrijeme, "%H:%M")
         granicno1 = time.strptime("12:00", "%H:%M")
         granicno2 = time.strptime("12:00", "%H:%M")
         dan = datetime.datetime.strptime(dan, '%Y-%m-%d')
         dan = dan.date()
-                        
+        
+
+                                  
         for i in range(6):
             if(dan == self.lista[i]):
-                print "lista"
                 for j in range (4):
                     if(vrijeme <= granicno1):
-                        Z1 = Label (self.okvir2, text=termin, bg="#829ED5")
-                        Z1.grid(column = i, row=2, sticky=N)
+                        self.Z1 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        self.Z1.grid(column = i, row=2, sticky=N, pady=6)
                     elif(vrijeme > granicno1 and vrijeme<=granicno2):
-                        Z2 = Label (self.okvir2, text=termin, bg="#829ED5")
-                        Z2.grid(column = i, row=3, sticky=N)
+                        self.Z2 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        self.Z2.grid(column = i, row=3, sticky=N, pady=6)
                     elif(vrijeme > granicno2):
-                        Z3 = Label (self.okvir2, text=termin, bg="#829ED5")
-                        Z3.grid(column = i, row=4, sticky=N)
+                        self.Z3 = Label (self.okvir2, text=termin, bg="#829ED5")
+                        self.Z3.grid(column = i, row=4, sticky=N, pady=6)
                     else: print "pogresan unos"
+
+        print self.Z1.winfo_exists()
     
-    def postaviZapise(self):
-        
-        print "postaviZapis"
-        vet = "1. veterinar"
-        zapisi = printVet(vet)
-                
+    def postaviZapise(self, vet):
+
+        zapisi = printVet(vet)                
         for i in zapisi:
             datum = i[0].split()
             dan = datum[0]
             vrijeme = datum[1]
             vrsta = i[1]
             imeZiv = i[2]
-            razlog = i[3]
+            imeVla = i[3]
+            razlog = i[4]
             
-            self.postaviRaspored(dan, vrijeme, vrsta, imeZiv, razlog)
+            self.postaviRaspored(dan, vrijeme, vrsta, imeZiv, imeVla, razlog)
+     
+    def pozoviVet1(self):
+        vet1 = "1. veterinar"
+        self.postaviZapise(vet1)
+                          
+    def pozoviVet2(self):
+        vet1 = "2. veterinar"
+        if (self.Z1.winfo_exists()):
+            print "test"
+            self.Z1.grid.forget()
+        elif(self.Z2.winfo_exists()):
+            self.Z2.grid.forget()
+        elif(self.Z3.winfo_exists()):
+            self.Z3.grid.forget()       
+            
+        self.postaviZapise(vet1)
+  
+    def pozoviVet3(self):
+        vet1 = "3. veterinar"
+        self.postaviZapise(vet1)                                 
                           
     def narudzba(self): 
     
@@ -513,7 +534,7 @@ def printQuery():
 
 def printVet(imeVet):
     vet = imeVet
-    queryCurs.execute('''SELECT datum, vrsta, imeZiv, razlog FROM narudzba WHERE
+    queryCurs.execute('''SELECT datum, vrsta, imeZiv, imeVla, razlog FROM narudzba WHERE
     veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (vet,))
     #for i in queryCurs:
     #    print i[0]
