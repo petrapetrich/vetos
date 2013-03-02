@@ -1,5 +1,4 @@
-VetOS - aplikacija za rezervaciju termina za veterinare
-================================
+## VetOS - aplikacija za rezervaciju termina za veterinare ##
 
 Prva završena verzija programa za rezervaciju termina u veterinarskoj
 stanici. Sastoji se iz početnog prozora te prozora s formom za rezervaciju 
@@ -9,8 +8,7 @@ napredak.
 Pisali su ga početnici u pythonu i vjerovatno je puno stvari odrađeno na
 krivi način ^.^
 
-Način korištenja:
--------------------------
+### Način korištenja: ###
 
 Program prilikom prvog pokretanja napravi bazu s tablicom ili koristi
 postojeću.
