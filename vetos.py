@@ -1,9 +1,10 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 #
-#sucelje za "admina": kalendar u kojem ce svaki admin moci unjeti svoj 
+#sucelje za korsinika: kalendar u kojem ce svaki korisnik moci unjeti svoj 
 #raspored smjene. Moze odabrati dane i sate. 
 #takoder moze pogledati raspored samo za sebe, tj rezerviorane termine.
+#NIJE REALIZIRANO HAHAHA
 
 #sucelje za korisnika(veternira): 
 #upitnik s pitanjima na koja ce 
@@ -20,7 +21,8 @@
 #oznaci razlog posjeta)
 #nakon ispnjavanja ankete dobije se kratki podsjetnik koji se mozda moze
 #isprintat
-#takoder se i adminov rapored moze isprintati
+#takoder se i korisnik rapored moze isprintati
+#NIJE RALIZIRANO XD
 
 from Tkinter import *
 from datetime import timedelta
@@ -65,7 +67,6 @@ class VetOs(Frame):
         B2.place(x=400, y=450, anchor=CENTER)
          
     def raspored(self):
-        
         self.raspored = Toplevel(bg="#829ed5")
         self.raspored.geometry ("1000x800+100+100")
         self.raspored.title(u"raspored")
@@ -86,7 +87,6 @@ class VetOs(Frame):
         command = self.pozoviVet3)
         dugme_vet3.grid(column=3, row=1, sticky=N, padx=10 , pady=10)
         
-               
         self.okvir2 = Frame (self.raspored, bg="#A1B7E2")
         self.okvir2.pack()
         self.okvir2.place(x=500, y=250, anchor = CENTER)
@@ -113,7 +113,6 @@ class VetOs(Frame):
         dan6.grid(column=6, row=1, sticky=N, padx=25, pady=10)
         
     def setDan(self):
-        
         d = timedelta(days=1)
         lista= [None] * 6       
         for i in range (6):
@@ -126,14 +125,12 @@ class VetOs(Frame):
         return lista        
         
     def postaviRaspored(self, dan, vrijeme, vrsta, imeZiv, imeVla, razlog):
-
         termin = vrijeme + "\n" + vrsta + "\n" + imeZiv + "\n" + imeVla + "\n" + razlog
         vrijeme = time.strptime(vrijeme, "%H:%M")
         granicno1 = time.strptime("12:00", "%H:%M")
         granicno2 = time.strptime("12:00", "%H:%M")
         dan = datetime.datetime.strptime(dan, '%Y-%m-%d')
         dan = dan.date()
-        
                                   
         for i in range(6):
             if(dan == self.lista[i]):
@@ -150,7 +147,6 @@ class VetOs(Frame):
                     else: print "pogresan unos"
     
     def postaviZapise(self, vet):
-
         zapisi = self.db.printVet(vet)                
         for i in zapisi:
             datum = i[0].split()
@@ -176,7 +172,6 @@ class VetOs(Frame):
         self.postaviZapise(vet1)                                 
                           
     def narudzba(self): 
-    
         self.narudzba = Toplevel(bg="#829ED5" )
         self.narudzba.geometry ("1000x1000+400+50")
         self.narudzba.title(u"Nova rezervacija")
@@ -288,7 +283,6 @@ class VetOs(Frame):
         R11.pack()
         R11.place(x=150, y=530, anchor=W)
         
-        
         R12 = Radiobutton(self.narudzba, text=u"kontrola", variable=self.var2,
         value=4, command=self.setRazlog, bg="#829ED5")
         R12.config(highlightthickness=0)
@@ -321,7 +315,6 @@ class VetOs(Frame):
         self.Lcal = Label(self.calOkvir, text=self.prikaz_mjeseca, font='courier',
         bg="#829ED5")
         self.Lcal.pack(fill=BOTH)
-        # Lcal.place(padx=3, pady=5, anchor=S)
         self.Bprev = Button(self.calOkvir, text="<", font='courier', bg="#829ED5")
         self.Bprev.pack(side=LEFT)
         self.Bprev.bind("<Button-1>", self.prevCallback)
@@ -329,7 +322,6 @@ class VetOs(Frame):
         self.Bnext.bind("<Button-1>", self.nextCallback)
         self.Bnext.pack(side=RIGHT)
 
-        
         L8 = Label(self.narudzba, text=u"Odaberite vrijeme:", font=self.font, bg="#829ED5")
         L8.pack()
         L8.place(x=500, y=650, anchor=W)
@@ -412,7 +404,6 @@ class VetOs(Frame):
 
     def setDatum(self):
         datum = self.E8.get()
-
         return datum
 
     def prevCallback(self, event):
