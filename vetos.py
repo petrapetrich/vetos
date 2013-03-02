@@ -129,11 +129,8 @@ class VetOs(Frame):
         
                                   
         for i in range(6):
-            print "for"
             if(dan == self.lista[i]):
-                print "if"
                 for j in range (4):
-                    print "for j"
                     if(vrijeme <= granicno1):
                         self.Z1 = Label (self.okvir2, text=termin, bg="#829ED5")
                         self.Z1.grid(column = i, row=2, sticky=N, pady=6)
