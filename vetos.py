@@ -38,8 +38,15 @@ class VetOs(Frame):
         self.parent = parent
         self.font=tkFont.Font(size=11)
         self.font2=tkFont.Font(weight="bold")
+        self.db = DataBase()
+        self.db.printQuery()
+        self.parent.protocol("WM_DELETE_WINDOW", self.exitNicely)
         self.initUI()
       
+    def exitNicely(self):
+        self.db.closeConnection()
+        self.quit()
+
     def initUI(self):
         self.parent.title(u"vetOS")
         self.pack(fill=BOTH, expand=1)
@@ -144,7 +151,7 @@ class VetOs(Frame):
     
     def postaviZapise(self, vet):
 
-        zapisi = printVet(vet)                
+        zapisi = self.db.printVet(vet)                
         for i in zapisi:
             datum = i[0].split()
             dan = datum[0]
@@ -484,14 +491,51 @@ class VetOs(Frame):
         razlog = self.setRazlog()
         datum = self.setDatum()
         print vet, vrsta, imeZiv, razlog, datum 
-        dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum)
-        printQuery()
+        self.db.dodajNarudzbu(vet, vrsta, imeZiv, imeVla, razlog, datum)
+        self.db.printQuery()
+
+class DataBase():
+
+    def __init__(self):
+        self.createDb = lite.connect('test.db')
+        self.queryCurs = self.createDb.cursor()
+        self.createTable()
+
+    def createTable(self):
+        self.queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
+        (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, imeZiv TEXT, 
+        imeVla TEXT, razlog TEXT, datum DATETIME)''')
+
+    def dodajNarudzbu(self, veterinar, vrsta, imeZiv, imeVla, razlog, datum):
+        self.queryCurs.execute('''INSERT INTO narudzba 
+            (veterinar, vrsta, imeZiv, imeVla, razlog, datum) VALUES (?, ?, ?, ?, ?, ?)''',
+            (veterinar, vrsta, imeZiv, imeVla, razlog, datum))
+        # Important for writing changes to database file!
+        self.createDb.commit()
+
+    def printQuery(self):
+        self.queryCurs.execute("SELECT * FROM narudzba")
+        for i in self.queryCurs:
+            print i
+
+    def printVet(self, imeVet):
+        self.queryCurs.execute('''SELECT datum, vrsta, imeZiv, imeVla, razlog FROM narudzba WHERE
+        veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (imeVet,))
+        #for i in queryCurs:
+        #    print i[0]
+        return self.queryCurs
+
+    def closeConnection(self):
+        print "closing db conn.."
+        self.queryCurs.close()
+        print "db conn.. closed"
 
 def main():
-    createTable()
-    printQuery()
-    imeVet = "1. veterinar"
-    printVet(imeVet)
+    # printQuery()
+    # imeVet = "1. veterinar"
+    # printVet(imeVet)
+    # db = DataBase()
+    # db.printQuery()
 
     root = Tk()
     root.geometry("800x600+400+100")
@@ -499,35 +543,9 @@ def main():
     root.mainloop()  
 
     # Close connection to Db
-    queryCurs.close()
+    # queryCurs.close()
 
-createDb = lite.connect('test.db')
-queryCurs = createDb.cursor()
 
-def createTable():
-    queryCurs.execute('''CREATE TABLE IF NOT EXISTS narudzba 
-    (id INTEGER PRIMARY KEY, veterinar TEXT, vrsta TEXT, imeZiv TEXT, 
-    imeVla TEXT, razlog TEXT, datum DATETIME)''')
-
-def dodajNarudzbu(veterinar, vrsta, imeZiv, imeVla, razlog, datum):
-    queryCurs.execute('''INSERT INTO narudzba 
-        (veterinar, vrsta, imeZiv, imeVla, razlog, datum) VALUES (?, ?, ?, ?, ?, ?)''',
-        (veterinar, vrsta, imeZiv, imeVla, razlog, datum))
-    # Important for writing changes to database file!
-    createDb.commit()
-
-def printQuery():
-    queryCurs.execute("SELECT * FROM narudzba")
-    for i in queryCurs:
-        print i
-
-def printVet(imeVet):
-    vet = imeVet
-    queryCurs.execute('''SELECT datum, vrsta, imeZiv, imeVla, razlog FROM narudzba WHERE
-    veterinar = ? ORDER BY DATETIME(datum, 'localtime')''', (vet,))
-    #for i in queryCurs:
-    #    print i[0]
-    return queryCurs
 
 if __name__ == '__main__':
     main()  
