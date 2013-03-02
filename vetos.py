@@ -127,11 +127,13 @@ class VetOs(Frame):
         dan = datetime.datetime.strptime(dan, '%Y-%m-%d')
         dan = dan.date()
         
-
                                   
         for i in range(6):
+            print "for"
             if(dan == self.lista[i]):
+                print "if"
                 for j in range (4):
+                    print "for j"
                     if(vrijeme <= granicno1):
                         self.Z1 = Label (self.okvir2, text=termin, bg="#829ED5")
                         self.Z1.grid(column = i, row=2, sticky=N, pady=6)
@@ -142,8 +144,6 @@ class VetOs(Frame):
                         self.Z3 = Label (self.okvir2, text=termin, bg="#829ED5")
                         self.Z3.grid(column = i, row=4, sticky=N, pady=6)
                     else: print "pogresan unos"
-
-        print self.Z1.winfo_exists()
     
     def postaviZapise(self, vet):
 
@@ -165,14 +165,6 @@ class VetOs(Frame):
                           
     def pozoviVet2(self):
         vet1 = "2. veterinar"
-        if (self.Z1.winfo_exists()):
-            print "test"
-            self.Z1.grid.forget()
-        elif(self.Z2.winfo_exists()):
-            self.Z2.grid.forget()
-        elif(self.Z3.winfo_exists()):
-            self.Z3.grid.forget()       
-            
         self.postaviZapise(vet1)
   
     def pozoviVet3(self):
