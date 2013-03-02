@@ -349,26 +349,6 @@ class VetOs(Frame):
         B2.pack()
         B2.place(x=200, y=950, anchor=CENTER)
 
-        """L2 = Label(narudzba, text="Koja je vaša životinja?")
-        L2.grid(column=2,row=4,sticky=W)
-        self.zivotinja = StringVar()
-        self.unos2 = Entry(narudzba,textvariable=self.zivotinja, width=20)
-        self.unos2.grid(column=2, row=4, sticky=W)
-        self.unos2.bind("<Return>", self.OnPressEnter)
-        self.zivotinja.set(u"Ovdje unesi ime životnje.")
-        self.potvrda2 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
-        self.potvrda2.grid(column=2, row=5, sticky=W)
-
-        L3 = Label(narudzba, text="Razlog posjeta?")
-        L3.grid(column=2,row=6,sticky=W)
-        self.razlog_posjeta = StringVar()
-        self.unos3 = Text(narudzba, width=60, height=10)
-        self.unos3.grid(column=2, row=7, sticky=W)
-        # self.unos3.bind("<Return>", self.OnPressEnter)
-        self.razlog_posjeta.set(u"Ovdje unesi razlog posjeta.")
-        self.potvrda3 = Button(narudzba, text ="Potvrda", command=self.OnPressButton)
-        self.potvrda3.grid(column=2, row=8, sticky=W)"""
-    
     def zivotinja(self):
         self.zivotinja = StringVar()
         self.zivotinja.set(u"Ovdje unesite vrstu životnje:")
@@ -531,21 +511,11 @@ class DataBase():
         print "db conn.. closed"
 
 def main():
-    # printQuery()
-    # imeVet = "1. veterinar"
-    # printVet(imeVet)
-    # db = DataBase()
-    # db.printQuery()
 
     root = Tk()
     root.geometry("800x600+400+100")
     app = VetOs(root)
     root.mainloop()  
-
-    # Close connection to Db
-    # queryCurs.close()
-
-
 
 if __name__ == '__main__':
     main()  
